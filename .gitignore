@@ -1,0 +1,11 @@
+/build/
+/avl
+/avl.exe
+/avl_console
+/avl_console.exe
+/avl_tests
+/avl_tests.exe
+/avl_memory_tests
+/avl_memory_tests.exe
+/avl_tests_sanitized
+/avl_tests_sanitized.exe
