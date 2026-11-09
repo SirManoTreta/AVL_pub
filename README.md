@@ -1,4 +1,7 @@
 # Arvore AVL
+Trabalho realizado por:
+- Kauan Moreira
+- Samuel Sampaio Lins
 
 ## Sobre o projeto
 
@@ -7,8 +10,7 @@ numeros inteiros, em C++17. Os algoritmos de insercao, remocao e rotacao sao
 implementados diretamente, com ponteiros e sem bibliotecas prontas de arvores.
 No Windows, a interface principal e uma janela com campo de texto, botoes,
 menus clicaveis e desenho da arvore. Usa a API nativa Win32, sem bibliotecas
-graficas externas. A versao de terminal continua disponivel, inclusive para
-Linux/macOS. Ambas compartilham a mesma classe AVL.
+graficas externas.
 
 Todos os textos do programa usam ASCII, sem acentos, para evitar problemas
 de codificacao.
@@ -68,12 +70,6 @@ Nao e necessario instalar Qt, SDL ou outro framework grafico.
 g++ -std=c++17 -Wall -Wextra -pedantic src/main.cpp src/AVLTree.cpp -Iinclude -o avl_console.exe
 ```
 
-**Terminal Linux/macOS:**
-
-```sh
-g++ -std=c++17 -Wall -Wextra -pedantic src/main.cpp src/AVLTree.cpp -Iinclude -o avl
-```
-
 Nao e necessario alterar a pagina de codigo do console: as mensagens nao usam
 acentos. A aplicacao de terminal tambem nao depende de cores ANSI.
 
@@ -127,12 +123,6 @@ Para abrir a versao de terminal no Windows:
 
 ```powershell
 .\avl_console.exe
-```
-
-Linux/macOS:
-
-```sh
-./avl
 ```
 
 Na versao de terminal, se compilado em `build`, execute `./build/avl` ou
@@ -265,14 +255,6 @@ Windows:
 python tests/test_cli.py avl_console.exe
 ```
 
-Linux/macOS:
-
-```sh
-./avl_tests
-./avl_memory_tests
-python3 tests/test_cli.py ./avl
-```
-
 Python 3 e opcional e usa apenas sua biblioteca padrao; nao e necessario para
 compilar ou executar a aplicacao. CTest inclui o teste da interface se encontrar
 o interpretador durante a configuracao.
@@ -291,9 +273,9 @@ A bateria C++ cobre:
 - Remocao de folha, nos com um ou dois filhos, sucessor com filho direito,
   raiz e remocoes repetidas da raiz ate esvaziar.
 - Tres percursos, informacoes dos nos, visualizacao, limpeza repetida e reuso.
-- 12.000 insercoes/remocoes em sequencias longas, incluindo ordem crescente,
+- 200 insercoes/remocoes em sequencias de teste, incluindo ordem crescente,
   decrescente e remocao repetida da raiz.
-- 30.000 operacoes aleatorias reproduziveis, com sementes 42, 2026 e 98765,
+- 500 operacoes aleatorias reproduziveis, com sementes 7, 21 e 42,
   comparadas com um vetor ordenado de referencia.
 
 Apos cada operacao das sequencias, sao verificadas a ordenacao BST global,
@@ -302,7 +284,7 @@ a quantidade de nos, a altura real de cada no, o FB e o limite AVL. Alem de
 
 Os testes automaticos de terminal verificam todas as opcoes, mensagens de rotacao,
 entradas invalidas, overflow, confirmacao/cancelamento e EOF em cada leitura.
-O teste de memoria conta alocacoes e liberacoes em 100 ciclos com 1.000 valores,
+O teste de memoria conta alocacoes e liberacoes em 10 ciclos com 50 valores,
 duplicatas, remocoes, limpeza e destruicao de arvores ainda preenchidas.
 Ele detecta alocacoes pendentes nesses cenarios; nao substitui um detector de
 acessos invalidos de memoria.
@@ -316,22 +298,3 @@ g++ -std=c++17 -g -fsanitize=address,undefined -fno-omit-frame-pointer tests/avl
 ```
 
 O suporte a esses sanitizadores depende do compilador e da plataforma.
-
-### Validacao realizada
-
-Em 23/10/2026, no Windows com g++ 15.2.0:
-
-- Aplicacao e testes compilados com `-Wall -Wextra -Wpedantic -Wconversion
-  -Wshadow -Werror`, sem warnings.
-- 15 grupos de testes dos algoritmos aprovados, incluindo as quatro rotacoes
-  na insercao e remocao, alturas reais e ordenacao apos cada operacao.
-- Testes do executavel e 100 ciclos de memoria aprovados, sem alocacoes pendentes
-  nos cenarios instrumentados.
-- Compilacao via CMake e execucao via CTest aprovadas: 3 de 3 testes.
-
-A janela Windows foi compilada com os mesmos warnings habilitados. Os testes
-automaticos acima continuam verificando a classe compartilhada e a versao de
-terminal; o desenho e a interacao da janela sao conferidos separadamente.
-
-AddressSanitizer e UndefinedBehaviorSanitizer nao foram executados nesta
-validacao. Linux/macOS nao foram testados neste ambiente.
